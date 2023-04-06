@@ -9,6 +9,7 @@ ADD requirements_yolo.txt ./requirements_yolo.txt
 
 RUN  pip install -r requirements.txt
 RUN  pip install -r requirements_yolo.txt
+## TODO download YOLO local
 
 #########
 
