@@ -117,6 +117,7 @@ def prediction(cnls_cnfg, con_params, model_params):
         with open(f"./prophet_models/prophet_model_{cnl}.json", "r") as fin:
             model = model_from_json(fin.read())
         pred = predict_period(model, **model_params)[["ds", "yhat"]]
+        pred["weekday"] = pred["ds"].dt.day_name(locale="ru_RU")
         pred["ds"] = pred["ds"].apply(lambda timestamp: timestamp.isoformat())
         pred["yhat"] = (pred["yhat"] * 100).astype(int)
         # print(f"Предсказание для камеры {cnl}:{pred.head()}")
