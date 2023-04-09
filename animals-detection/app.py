@@ -120,8 +120,9 @@ def prediction(cnls_cnfg, con_params, model_params):
         pred["weekday"] = pred["ds"].dt.day_name(locale="ru_RU")
         pred["ds"] = pred["ds"].apply(lambda timestamp: timestamp.isoformat())
         pred["yhat"] = (pred["yhat"] * 100).astype(int)
+        pred.rename(columns={"ds": "date", "yhat": "predict"}, inplace=True)
         # print(f"Предсказание для камеры {cnl}:{pred.head()}")
-        predictions_dict[cnl] = pred.values.tolist()
+        predictions_dict[cnl] = pred.to_dict(orient="records")
     return predictions_dict
 
 
